@@ -17,7 +17,7 @@ on:
   #- cron: '0 */1 * * *' # every hour
   #
   # For this example, we are going to run the job every 5 minutes
-  - cron: '*/5 * * * *'
+  - cron: '*/1 * * * *'
 
 jobs:
   run-syntehtic-monitoring:
@@ -40,19 +40,32 @@ jobs:
           tracetest --config ./tracetest/tracetest-cli.yaml test run -d test-api.yaml
 
       - name: Send custom JSON data to Slack workflow
-        if: ${{ failure() }}
+        # if: ${{ failure() }}
         uses: slackapi/slack-github-action@v1.24.0
         with:
           payload: |
             {
-              "text": "Synthetic monitoring failed! ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
               "blocks": [
                 {
-                  "type": "section",
+                  "type": "header",
                   "text": {
-                    "type": "mrkdwn",
-                    "text": "Synthetic monitoring test failed!\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                    "type": "plain_text",
+                    "text": ":warning: Synthetic Monitoring Alert :warning:",
+                    "emoji": true
                   }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Status:*\nFailed"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Pipeline:*\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View workflow>"
+                    }
+                  ]
                 }
               ]
             }

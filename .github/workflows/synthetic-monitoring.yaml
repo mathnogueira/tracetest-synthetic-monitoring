@@ -4,10 +4,6 @@
 name: Synthetic monitoring with Tracetest
 
 on:
-  # for testing purposes
-  push:
-    branches:
-      - main
   schedule:
   # Normally, we run synthetic monitoring in a time schedule. GitHub Actions allows
   # us to achieve that using a cron job. Read more of how cron jobs are configured in

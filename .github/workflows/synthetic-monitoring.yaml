@@ -44,7 +44,7 @@ jobs:
           tracetest --config ./tracetest/tracetest-cli.yaml test run -d test-api.yaml
 
       - name: Send custom JSON data to Slack workflow
-        # if: ${{ failure() }}
+        if: ${{ failure() }}
         uses: slackapi/slack-github-action@v1.24.0
         with:
           payload: |
@@ -55,7 +55,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "### Synthetic monitoring test failed!\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                    "text": "Synthetic monitoring test failed!\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                   }
                 }
               ]

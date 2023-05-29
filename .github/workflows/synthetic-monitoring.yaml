@@ -41,7 +41,7 @@ jobs:
       - name: Run syntethic monitoring tests
         id: monintoring
         run: |
-          tracetest --config ./tracetest/tracetest-cli.yaml test run -d test-api.yaml
+          tracetest --config ./tracetest/tracetest-cli.yaml test run -d test-api2.yaml
 
       - name: Notify team if synthetic monitoring tests failed
         if: ${{ failure() }}

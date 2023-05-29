@@ -45,7 +45,7 @@ jobs:
         run: |
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "TRACETEST_OUTPUT=$(tracetest --config ./tracetest/tracetest-cli.yaml test run -d test-api.yaml)" >> "$GITHUB_OUTPUT"
-          secho "$EOF" >> "$GITHUB_OUTPUT"
+          echo "$EOF" >> "$GITHUB_OUTPUT"
 
       - name: Print output
         run: echo $TRACETEST_OUTPUT

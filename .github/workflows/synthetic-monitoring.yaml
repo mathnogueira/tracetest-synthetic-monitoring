@@ -39,4 +39,4 @@ jobs:
         run: curl -L https://raw.githubusercontent.com/kubeshop/tracetest/main/install-cli.sh | bash
 
       - name: Run syntethic monitoring tests
-        run: tracetest --config ./tracetest/tracetest-cli.yaml version
+        run: tracetest --config ./tracetest/tracetest-cli.yaml test run -d test-api.yaml

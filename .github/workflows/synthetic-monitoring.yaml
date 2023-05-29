@@ -44,7 +44,7 @@ jobs:
         # about this in GitHub's official documentation: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter
         run: |
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          echo "TRACETEST_OUTPUT=$(tracetest --config ./tracetest/tracetest-cli.yaml test run -d test-api.yaml)" >> "$GITHUB_OUTPUT"
+          echo "TRACETEST_OUTPUT=$(tracetest --config ./tracetest/tracetest-cli.yaml test run -d test-api.yaml)<<$EOF" >> "$GITHUB_OUTPUT"
           echo "$EOF" >> "$GITHUB_OUTPUT"
 
       - name: Print output

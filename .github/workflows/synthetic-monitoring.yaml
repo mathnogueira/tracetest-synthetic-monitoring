@@ -40,14 +40,9 @@ jobs:
 
       - name: Run syntethic monitoring tests
         id: monintoring
-        # We run the test and store the command stdout in a GitHub actions output called "TRACETEST_OUTPUT". Read more
-        # about this in GitHub's official documentation: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter
         run: |
-          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          echo "TRACETEST_OUTPUT=$(tracetest --config ./tracetest/tracetest-cli.yaml test run -d test-api.yaml)<<$EOF" >> "$GITHUB_OUTPUT"
-          echo "$EOF" >> "$GITHUB_OUTPUT"
+          tracetest --config ./tracetest/tracetest-cli.yaml test run -d test-api.yaml
 
-      - name: Print output
-        run: echo $TRACETEST_OUTPUT
-        env:
-          TRACETEST_OUTPUT: ${{ steps.monitoring.output.TRACETEST_OUTPUT }}
+      - name: Notify team if synthetic monitoring tests failed
+        if: ${{ failure() }}
+        run: echo "failure"

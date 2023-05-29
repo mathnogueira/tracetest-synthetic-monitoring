@@ -37,10 +37,13 @@ jobs:
       - name: Install tracetest CLI
         run: curl -L https://raw.githubusercontent.com/kubeshop/tracetest/main/install-cli.sh | bash
 
+      - name: Configure Tracetest CLI
+        run: tracetest configure -g --endpoint http://localhost:11633
+
       - name: Run syntethic monitoring tests
         id: monintoring
         run: |
-          tracetest --config ./tracetest/tracetest-cli.yaml test run -d test-api.yaml
+          tracetest test run -d test-api.yaml
 
       - name: Send custom JSON data to Slack workflow
         if: ${{ failure() }}

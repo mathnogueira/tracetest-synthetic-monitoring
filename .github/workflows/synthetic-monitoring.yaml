@@ -42,7 +42,7 @@ jobs:
         id: monintoring
         # We run the test and store the command stdout in a GitHub actions output called "TRACETEST_OUTPUT". Read more
         # about this in GitHub's official documentation: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter
-        run: echo "TRACETEST_OUTPUT=$(tracetest --config ./tracetest/tracetest-cli.yaml test run -d test-api.yaml)" >> $GITHUB_OUTPUT
+        run: echo "TRACETEST_OUTPUT=$(tracetest --config ./tracetest/tracetest-cli.yaml test run -d test-api.yaml)" >> "$GITHUB_OUTPUT"
 
       - name: Print output
         run: echo $TRACETEST_OUTPUT
